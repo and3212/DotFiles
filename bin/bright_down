@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Author: Liam Lawrence
+# Date: 2/24/17
+# Custom script to lower brightness of my laptop screen
+
+# Sets up file paths and gets the value of brightness and sets the min
+BRIGHTPATH=("/sys/class/backlight/intel_backlight/brightness")
+BRIGHTNESS=$(cat $BRIGHTPATH)
+MINBRIGHT=(0)
+
+# Calculates the new brightness value
+CHANGE=(10)
+NEWBRIGHT=$(($BRIGHTNESS - $CHANGE))
+
+# Clears out the old value
+> $BRIGHTPATH
+
+# Makes sure there is no overflow
+if [ $NEWBRIGHT -le $MINBRIGHT ]; then
+	echo $MINBRIGHT >> $BRIGHTPATH
+else
+	echo $NEWBRIGHT >> $BRIGHTPATH
+fi
+
+exit
+

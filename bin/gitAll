@@ -1,0 +1,22 @@
+#!/bin/bash
+# Author: Liam Lawrence
+# Date: 4.18.17
+# Adds all, commits, and then pushes git to save time
+
+if [ -z "$1" ]; then
+	echo "ERROR: No commit message"
+	exit
+fi
+
+# Makes sure you want to go through with everything
+git add -A
+git status
+read -sp 'Would you like to commit all? [y/N]' -n 1 -r
+REPLY=${REPLY,,}
+if [ "$REPLY" != "y" ]; then
+	echo ""
+	exit
+fi
+
+git commit -m "$1"
+git push

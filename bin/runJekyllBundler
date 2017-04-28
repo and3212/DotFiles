@@ -1,0 +1,24 @@
+#!/bin/bash
+# Author: Liam Lawrence
+# Date: 4.18.17
+# Creates a new folder that will locally run your website and keeps your project folder intact
+# Run inside the main directory of where your Jekyll files are located
+# -- Uses Bundler --
+
+# Gets the current directories name
+DIR=$(basename "$PWD")
+
+# Removes any old instances of the web test folder if they exist
+cd ..
+rm -rf gitWebTest
+
+# Copies our project folder into the web test folder
+cp -r $DIR gitWebTest
+cd gitWebTest
+
+# Installs the proper gems
+gem install jekyll bundler
+jekyll new . --force
+
+# Runs the server on a localhost
+bundle exec jekyll serve

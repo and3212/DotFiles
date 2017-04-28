@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Author: Liam Lawrence
+# Date: 4.14.17
+# Creates a new blank file with the date at the top
+
+FILENAME=$(date +%m-%d-%y)
+DATE=$(date +%B)" "$(date +%d)", "$(date +%Y)
+
+# Creates the file and adds a header to the top of it
+touch $FILENAME
+echo $DATE >> $FILENAME

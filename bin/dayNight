@@ -1,0 +1,22 @@
+#!/bin/bash
+
+
+TIME=$(cat ~/bin/config/dayNight/timeConf)
+
+# Removes whatever is in the time script
+> ~/bin/config/dayNight/timeConf
+
+echo $TIME
+
+if [ $TIME = "day" ]
+then
+	wal -i ~/bin/config/dayNight/night -q
+	echo night >> ~/bin/config/dayNight/timeConf
+else
+	
+	wal -i ~/bin/config/dayNight/day -q
+	echo day >> ~/bin/config/dayNight/timeConf
+fi
+
+
+exit

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Author: Liam Lawrence
+# Date: 3/16/2017
+# Automatic SCP backup to a specified server of the current directory
+
+if [ "$2" -eq 0 ]; then
+	USER=("liamServ")
+	REMOTEHOST=("98.244.106.42:22")
+	DIR=("~/Backup")
+else
+	USER=("$1")
+	REMOTEHOST=("$2")
+	DIR=("$3")
+fi
+
+TIME=$(date +"%D"_"%T")
+FILENAME=("backup_$TIME.tar.gz")
+
+echo "Starting backup of current directory"
+tar -czvf backup.tar.gz ./
+echo "Backup finished! Starting upload to server"
+scp backup.tar.gz $USER@$REMOTEHOST:$DIR
+echo "Removing backup file"
+rm -f backup.tar.gz
+echo "Finished!"
+

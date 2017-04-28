@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Author: Liam Lawrence
+# Date: 3/16/17
+# Fixes clock skew when run as Sudo
+
+ntpd -qg

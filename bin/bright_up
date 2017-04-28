@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Author: Liam Lawrence
+# Date: 2/24/17
+# Custom script to raise the brightness of my laptop screen
+
+# Sets up file paths and gets the value of brightness and its max
+MAXPATH=("/sys/class/backlight/intel_backlight/max_brightness")
+BRIGHTPATH=("/sys/class/backlight/intel_backlight/brightness")
+MAXBRIGHT=$(cat $MAXPATH)
+BRIGHTNESS=$(cat $BRIGHTPATH)
+
+# Calculates the new brightness value
+CHANGE=(10)
+NEWBRIGHT=$(($BRIGHTNESS + $CHANGE))
+
+# Clears out the old value
+> $BRIGHTPATH
+
+# Makes sure there is no overflow
+if [ $NEWBRIGHT -ge $MAXBRIGHT ]; then
+	echo $MAXBRIGHT >> $BRIGHTPATH
+else
+	echo $NEWBRIGHT >> $BRIGHTPATH
+fi
+
+exit
+
