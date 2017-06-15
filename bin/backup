@@ -1,27 +1,32 @@
 #!/bin/bash
 
 # Author: Liam Lawrence
-# Date: 3/16/2017
+# Date: 5/23/2017
 # Automatic SCP backup to a specified server of the current directory
 
-if [ "$2" -eq 0 ]; then
-	USER=("liamServ")
-	REMOTEHOST=("98.244.106.42:22")
-	DIR=("~/Backup")
+if [ $# -eq 0 ]; then
+        USER=("liam")
+        REMOTEHOST=("192.168.199.129")
+        DIR=("~/Backup")
 else
-	USER=("$1")
-	REMOTEHOST=("$2")
-	DIR=("$3")
+        USER=("$1")
+        REMOTEHOST=("$2")
+        DIR=("$3")
 fi
 
-TIME=$(date +"%D"_"%T")
-FILENAME=("backup_$TIME.tar.gz")
+BACKUPDIR=(${PWD##*/})
+TIME=$(date +"%F"_"%H"."%M")
+FILENAME=("${BACKUPDIR}_${TIME}.tar.gz")
 
-echo "Starting backup of current directory"
-tar -czvf backup.tar.gz ./
-echo "Backup finished! Starting upload to server"
-scp backup.tar.gz $USER@$REMOTEHOST:$DIR
-echo "Removing backup file"
-rm -f backup.tar.gz
-echo "Finished!"
+# The reason for the long command is that is shows the progress of the compression
+echo "Compressing current directory"
+tar --exclude=*.gz -cf - . | pv -s $(du -sb . | awk '{print $1}') | gzip > out.tar.gz
+mv out.tar.gz $FILENAME
 
+echo "Beginning upload to server"
+scp  $FILENAME $USER@$REMOTEHOST:$DIR
+
+echo "Removing backup from local machine"
+rm -f $FILENAME
+
+echo "Finished file backup!"
