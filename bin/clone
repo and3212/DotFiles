@@ -1,0 +1,28 @@
+#!/bin/bash
+# Author: Liam Lawrence
+# Date: July 19, 2017
+# Easier git clone commands
+
+# Defaults to my username and one argument clones from a personal repository
+$USERNAME = "and3212"
+if [ -z "$2" ]; then
+        if [ -z "$1" ]; then
+                echo "ERROR: No repository named"
+                exit
+        fi
+        git clone "https://github.com/$USERNAME/$1"
+        exit
+fi
+
+# Lets you clone a repository, arugment one is the account name and the second argument is the repository name
+if [ -z "$1" ]; then
+		echo "ERROR: No user and repository named"
+		exit
+fi
+if [ -z "$2" ]; then
+	echo "ERROR: No repository named"
+	exit
+fi
+  
+git clone "https://github.com/$1/$2"
+exit
