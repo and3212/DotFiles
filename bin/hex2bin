@@ -2,6 +2,7 @@
 # Author: Liam Lawrence
 # Date: October 11, 2017
 # Converts a hex string in ASCII to a bin file and then display it
+# https://stackoverflow.com/questions/28242813/how-to-convert-a-text-file-to-binary-file-using-linux-commands
 
 if [ -z "$1" ]; then
     echo "Error: No filepath stated"
