@@ -1,0 +1,25 @@
+#!/bin/bash
+# Author: Liam Lawrence
+# Date: October 11, 2017
+# Converts a hex string in ASCII to a bin file and then display it
+
+if [ -z "$1" ]; then
+    echo "Error: No filepath stated"
+    exit
+fi
+
+# Converst the file and then displays it
+xxd -r -p "$1" > binary_dump
+read -sp "od(1), hexdump(2), xxd(3): " -n 1 -r
+if [ "$REPLY" == "1" ]; then
+    echo ""
+    od -c binary_dump
+elif [ "$REPLY" == "2" ]; then
+    echo ""
+    hd binary_dump
+elif [ "$REPLY" == "3" ]; then
+    echo ""
+    xxd binary_dump
+else
+    echo "Error: Invalid Choice"
+fi
