@@ -1,0 +1,13 @@
+s# O PIO, I, PU, ST##
+s# I PIO, I, PU, ST##
+s# I PIO, I, PU, ST##
+s# I/O PIO, I, PU, ST##
+s# PIO, I, PU, ST##
+s# I, PD, ST##
+s# I, ST##
+s# I, PU, ST##
+s# A20, ##
+s# A23, ##
+s# A24, ##
+s# A25, ##
+s# O, PD##
